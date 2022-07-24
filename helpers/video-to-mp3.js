@@ -38,7 +38,7 @@ const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
     };
     
     const YD = new YoutubeMp3Downloader({
-        "ffmpegPath": "C:\\Users\\Tenebris\\Documents\\FFMPEG\\bin\\ffmpeg.exe",
+        "ffmpegPath": "./FFMPEG/bin/ffmpeg.exe",
         "outputPath": "./",
         "youtubeVideoQuality": "highestaudio",
         "queueParallelism": 2,
@@ -56,7 +56,6 @@ const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
     
     YD.on("error", function(error) {
         errorCallback('Unknown error');
-        errorCallback();
     });
     
     YD.on("progress", function(progress) {
