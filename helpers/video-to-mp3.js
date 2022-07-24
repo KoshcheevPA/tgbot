@@ -1,16 +1,8 @@
 const YoutubeMp3Downloader = require('youtube-mp3-downloader');
 const ytdl = require('ytdl-core');
 
-function validateUrl(value)
-{
-    var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi
-    var regexp = new RegExp(expression);
-    return regexp.test(value);
-} 
-
-
 const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
-    if(!validateUrl(url)) {
+    if(!ytdl.validateURL(url)) {
         errorCallback('Невалидный URL');
         return;
     };
@@ -38,7 +30,7 @@ const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
     };
     
     const YD = new YoutubeMp3Downloader({
-        "ffmpegPath": "./ffmpeg-git-20220722-amd64-static/ffmpeg.exe",
+        // "ffmpegPath": "./ffmpeg-git-20220722-amd64-static/ffmpeg.exe",
         "outputPath": "./",
         "youtubeVideoQuality": "highestaudio",
         "queueParallelism": 2,
