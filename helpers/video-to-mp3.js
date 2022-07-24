@@ -38,7 +38,7 @@ const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
     };
     
     const YD = new YoutubeMp3Downloader({
-        "ffmpegPath": "./FFMPEG/bin/ffmpeg.exe",
+        "ffmpegPath": "./ffmpeg-git-20220722-amd64-static/ffmpeg.exe",
         "outputPath": "./",
         "youtubeVideoQuality": "highestaudio",
         "queueParallelism": 2,
