@@ -1,6 +1,6 @@
 const fs = require('fs');
 const TelegramBotApi = require('node-telegram-bot-api');
-const {makeMakeMp3FileFromLink} = require('./helpers/video-to-mp3')
+const {makeMp3FileFromLink} = require('./helpers/video-to-mp3')
 require('dotenv').config();
 const token = process.env.TOKEN;
 
@@ -9,7 +9,7 @@ const bot = new TelegramBotApi(token, {polling: true});
 bot.on('message', async(msg) => {
     const {chat, text} = msg;
     const chatId = chat.id;
-    console.log(msg);
+    console.log(`${chatId} ${chat.username} ${text}`);
 
     try {
         if(text === '/start') {
@@ -19,7 +19,8 @@ bot.on('message', async(msg) => {
         if(text === 'михалыч' || text === 'Михалыч') {
             return await bot.sendSticker(chatId, 'CAACAgIAAxkBAAM5Yt13tV9phKwLIvvLDixRQ5TcC1EAAkMAA_cxZgduu6HMBKBCbCkE');
         }
-
+        
+        const progressCallback = async(message) => await bot.sendMessage(chatId, message);
         const errorCallback = async(message) => await bot.sendMessage(chatId, message);
         const successCallback = async (path) => {
             await bot.sendAudio(chatId, path);
@@ -28,7 +29,7 @@ bot.on('message', async(msg) => {
             });
             return;
         };
-        makeMakeMp3FileFromLink(text, successCallback, errorCallback)
+        makeMp3FileFromLink(text, successCallback, errorCallback, progressCallback)
     } catch(e) {
         return bot.sendMessage(chatId, 'Error')
     }

@@ -1,7 +1,7 @@
 const YoutubeMp3Downloader = require('youtube-mp3-downloader');
 const ytdl = require('ytdl-core');
 
-const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
+const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressCallback) => {
     if(!ytdl.validateURL(url)) {
         errorCallback('Невалидный URL');
         return;
@@ -41,18 +41,18 @@ const makeMakeMp3FileFromLink = async(url, successCallback, errorCallback) => {
     YD.download(videoId);
     
     YD.on("finished", function(err, data) {
-        console.log(JSON.stringify(data));
         successCallback(data.file);
         return true;
     });
     
     YD.on("error", function(error) {
+        console.log(error)
         errorCallback('Unknown error');
     });
     
     YD.on("progress", function(progress) {
-        console.log(JSON.stringify(progress));
+        console.log('Convertation');
     });
 }
 
-module.exports = {makeMakeMp3FileFromLink}
+module.exports = {makeMp3FileFromLink}
