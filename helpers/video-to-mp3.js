@@ -50,9 +50,9 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
         errorCallback('Unknown error');
     });
     
-    YD.on("progress", function(progress) {
-        console.log('Convertation');
-    });
+    // YD.on("progress", function(progress) {
+    //     console.log('Convertation');
+    // });
 }
 
 module.exports = {makeMp3FileFromLink}
