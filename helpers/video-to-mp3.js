@@ -30,7 +30,6 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
     };
     
     const YD = new YoutubeMp3Downloader({
-        // "ffmpegPath": "./ffmpeg-git-20220722-amd64-static/ffmpeg.exe",
         "outputPath": "./",
         "youtubeVideoQuality": "highestaudio",
         "queueParallelism": 2,
@@ -49,10 +48,6 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
         console.log(error)
         errorCallback('Unknown error');
     });
-    
-    // YD.on("progress", function(progress) {
-    //     console.log('Convertation');
-    // });
 }
 
 module.exports = {makeMp3FileFromLink}
