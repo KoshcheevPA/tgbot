@@ -1,7 +1,8 @@
-const fs = require('fs');
 const TelegramBotApi = require('node-telegram-bot-api');
+const fs = require('fs');
 const {makeMp3FileFromLink} = require('./helpers/video-to-mp3')
 require('dotenv').config();
+process.env["NTBA_FIX_350"] = 1;
 const token = process.env.TOKEN;
 
 const bot = new TelegramBotApi(token, {polling: true});
