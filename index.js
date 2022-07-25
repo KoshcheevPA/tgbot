@@ -30,7 +30,7 @@ bot.on('message', async(msg) => {
             });
             return;
         };
-        makeMp3FileFromLink(text, successCallback, errorCallback, progressCallback)
+        return await makeMp3FileFromLink(text, successCallback, errorCallback, progressCallback)
     } catch(e) {
         return bot.sendMessage(chatId, 'Error')
     }
