@@ -8,8 +8,10 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
     };
 
     let info;
+    let videoId;
     try {
       info = await ytdl.getInfo(url, { quality: this.youtubeVideoQuality })
+      videoId = info.videoDetails.videoId;
     } catch (err){
       errorCallback('Unknown Error');
       console.log(err)
@@ -20,10 +22,7 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
         errorCallback('Длительность видео первышает один час, многовато...');
         return;
     }
-
-    const youtubeUrl = new URL(url);
-
-    const videoId = new URLSearchParams(youtubeUrl.search).get('v');
+    
     if(!videoId) {
         errorCallback('Невалидный URL');
         return;

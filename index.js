@@ -28,6 +28,7 @@ bot.on('message', async(msg) => {
             fs.rmSync(path, {
                 force: true,
             });
+            console.log(`Отправлено ${path} для ${chatId} ${chat.username}`)
             return;
         };
         makeMp3FileFromLink(text, successCallback, errorCallback, progressCallback)
