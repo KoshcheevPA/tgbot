@@ -1,9 +1,9 @@
 const YoutubeMp3Downloader = require('youtube-mp3-downloader');
 const ytdl = require('ytdl-core');
 
-const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressCallback) => {
+const makeMp3FileFromLink = async(url, successCallback, sendMessageCallback) => {
     if(!ytdl.validateURL(url)) {
-        errorCallback('Невалидный URL');
+        sendMessageCallback('Невалидный URL');
         return;
     };
 
@@ -12,19 +12,19 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
     try {
       info = await ytdl.getInfo(url, { quality: this.youtubeVideoQuality })
       videoId = info.videoDetails.videoId;
-    } catch (err){
-      errorCallback('Unknown Error');
+    } catch (err) {
+      sendMessageCallback('Unknown Error');
       console.log(err)
       return;
     }
 
     if(info.videoDetails.lengthSeconds > 3600) {
-        errorCallback('Длительность видео первышает один час, многовато...');
+        sendMessageCallback('Длительность видео первышает один час, многовато...');
         return;
     }
-    
+
     if(!videoId) {
-        errorCallback('Невалидный URL');
+        sendMessageCallback('Невалидный URL');
         return;
     };
     
@@ -45,7 +45,7 @@ const makeMp3FileFromLink = async(url, successCallback, errorCallback, progressC
     
     YD.on("error", function(error) {
         console.log(error)
-        errorCallback('Unknown error');
+        sendMessageCallback('Unknown error');
     });
 }
 

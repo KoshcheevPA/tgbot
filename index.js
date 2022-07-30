@@ -21,8 +21,7 @@ bot.on('message', async(msg) => {
             return await bot.sendSticker(chatId, 'CAACAgIAAxkBAAM5Yt13tV9phKwLIvvLDixRQ5TcC1EAAkMAA_cxZgduu6HMBKBCbCkE');
         }
         
-        const progressCallback = async(message) => await bot.sendMessage(chatId, message);
-        const errorCallback = async(message) => await bot.sendMessage(chatId, message);
+        const sendMessageCallback = async(message) => await bot.sendMessage(chatId, message);
         const successCallback = async (path) => {
             await bot.sendAudio(chatId, path);
             fs.rmSync(path, {
@@ -31,7 +30,7 @@ bot.on('message', async(msg) => {
             console.log(`Отправлено ${path} для ${chatId} ${chat.username}`)
             return;
         };
-        makeMp3FileFromLink(text, successCallback, errorCallback, progressCallback)
+        makeMp3FileFromLink(text, successCallback, sendMessageCallback)
     } catch(e) {
         return bot.sendMessage(chatId, 'Error')
     }
